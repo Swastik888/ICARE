@@ -1,32 +1,51 @@
 // Text below follows the supplied ICARE home page screenshots. Edit this file to update it.
 export const homeContent = {
-  utility: { email: "admission@icaremedicalcollege.com", phone: "+91 7908022278" },
+  utility: {
+    email: "admission@icaremedicalcollege.com",
+    phone: "+91 7908022278",
+    hospitalPhone: "+91 8170008563",
+  },
   brand: "ICARE",
   navigation: ["Home", "About", "Admission"],
-  update: "MBBS | MD/ MS ADMISSION 2025-26",
+  update: "MBBS | MD/ MS ADMISSION 2026-27",
   hero: {
     title: "Welcome To",
     highlight: "ICARE",
-    titleEnd: "Institute of Medical Sciences and Research and Dr. Bidhan Chandra Roy Hospital",
-    description: "ICARE Institute of Medical Sciences and Research and Dr. Bidhan Chandra Roy Hospital as a premier academic medical center is to be a paramount resource for the people",
+    titleEnd:
+      "Institute of Medical Sciences and Research and Dr. Bidhan Chandra Roy Hospital",
+    description:
+      "ICARE Institute of Medical Sciences and Research and Dr. Bidhan Chandra Roy Hospital as a premier academic medical center is to be a paramount resource for the people",
     image: "https://icaremedicalcollege.co/storage/app/slider-1.jpg",
     imageAlt: "ICARE Medical College campus in Haldia",
     action: "About Us",
-    stats: [{ number: "NMC", label: "APPROVED COLLEGE" }, { number: "150", label: "SEATS INTAKE" }],
+    stats: [
+      { number: "NMC", label: "APPROVED COLLEGE" },
+      { number: "150", label: "SEATS INTAKE" },
+    ],
   },
   intro: {
     title: "The Best Medical College",
     text: "ICARE Institute of Medical Sciences and Research and Dr. Bidhan Chandra Roy Hospital, Haldia (IIMSAR & BCRHH), was founded to establish a modern education center and provide top-notch healthcare facilities in Haldia. Its mission is to offer value-based education and healthcare services of international standards, aiming to foster the ideal development of Haldia.",
     admission: "Admission Open (M.B.B.S, MD/MS)",
   },
-  enquiry: { title: "Admission Enquiry", name: "Enter Your Name", mobile: "Enter Mobile Number", course: "Select Course", action: "Make Enquery", courses: ["MBBS", "MD/MS"] },
+  enquiry: {
+    title: "Admission Enquiry",
+    name: "Enter Your Name",
+    mobile: "Enter Mobile Number",
+    course: "Select Course",
+    action: "Make Enquery",
+    courses: ["MBBS", "MD/MS"],
+  },
   campusVideo: {
-    title: "Campus Video",
-    src: "https://icaremedicalcollege.co/assets/images/video.mp4",
+    title: "Experience ICARE",
+    src: "https://icaremedicalcollege.co/storage/app/IMG_0193.MP4",
+    // Try 90 first. If sideways the other way use 270; upside down use 180; already straight use 0.
+    rotate: 90 as 0 | 90 | 180 | 270,
   },
   promise: {
     title: "Choose The Best",
-    description: "Provide quality medical education as wellas best health care facilities all over theregion for public benefit",
+    description:
+      "Provide quality medical education as wellas best health care facilities all over theregion for public benefit",
     items: [
       { title: "Placement Assitance" },
       { title: "Experienced Faculty" },
@@ -51,45 +70,130 @@ export const homeContent = {
   },
   services: {
     title: "We Provide Best Quality Services",
-    description: "Maintain the best ethical and moral standards emphasizing integrity, honesty, trustworthiness, confidentiality, professionalism and stewardship.",
+    description:
+      "Maintain the best ethical and moral standards emphasizing integrity, honesty, trustworthiness, confidentiality, professionalism and stewardship.",
     items: [
-      { icon: "▤", title: "Library", text: "ICARE Medical College library has all the resources needed for students to persue their career and aquire global knowlwdge and research papers." },
-      { icon: "▣", title: "Digital Classrooms", text: "The college classrooms is equipped with digital technology for faculty to deliver next level teaching and help students understand deeply." },
-      { icon: "✣", title: "Experienced Faculty", text: "We have highly experienced faculties in all departments with industry experience to provide quality learning experience to the students." },
-      { icon: "⚕", title: "Equipped Labs", text: "ICARE Haldia college has state of the art equipment in it's lab for students to carry out experiments and their practical claases with ease." },
-      { icon: "✚", title: "Pharmacy", text: "Nothing feels much better than paying least for your medicines. We assure customer satisfaction with personal care." },
-      { icon: "⌂", title: "5+ acres Campus", text: "The college has well 5+ acres of campus well furnished with all facilites like Library, Labs and classrooms and a better ambience for students." },
+      {
+        icon: "▤",
+        title: "Library",
+        text: "ICARE Medical College library has all the resources needed for students to persue their career and aquire global knowlwdge and research papers.",
+      },
+      {
+        icon: "▣",
+        title: "Digital Classrooms",
+        text: "The college classrooms is equipped with digital technology for faculty to deliver next level teaching and help students understand deeply.",
+      },
+      {
+        icon: "✣",
+        title: "Experienced Faculty",
+        text: "We have highly experienced faculties in all departments with industry experience to provide quality learning experience to the students.",
+      },
+      {
+        icon: "⚕",
+        title: "Equipped Labs",
+        text: "ICARE Haldia college has state of the art equipment in it's lab for students to carry out experiments and their practical claases with ease.",
+      },
+      {
+        icon: "✚",
+        title: "Pharmacy",
+        text: "Nothing feels much better than paying least for your medicines. We assure customer satisfaction with personal care.",
+      },
+      {
+        icon: "⌂",
+        title: "5+ acres Campus",
+        text: "The college has well 5+ acres of campus well furnished with all facilites like Library, Labs and classrooms and a better ambience for students.",
+      },
     ],
   },
-  cta: { title: "Admission Open!", text: "Call us for any query related to admission in MBBS or MD/MS (PG) Courses.", action: "CALL NOW" },
+  cta: {
+    title: "Admission Open!",
+    text: "Speak to Our Academic Counsellor For MBBS & MD/MS Admissions through Counselling.",
+    action: "CALL NOW",
+  },
   news: {
     title: "News & Events",
-    description: "Get Immediate Activation or Express Transfer service free of charge. Enthusiastically enhance plug-and-play testing procedures and cross.",
+    description:
+      "Get Immediate Activation or Express Transfer service free of charge. Enthusiastically enhance plug-and-play testing procedures and cross.",
     news: [
-      { date: "2019-08-17", title: "3rd day College mop up co..", text: "This is for information to all NEET q.." },
-      { date: "2019-09-01", title: "Time Table for 1st MBBS (..", text: "Time Table for 1st MBBS (Phase 1) Studen.." },
-      { date: "2019-08-14", title: "1st mop up counseling wil..", text: "This is for information to all NEET q.." },
+      {
+        date: "2019-08-17",
+        title: "3rd day College mop up co..",
+        text: "This is for information to all NEET q..",
+      },
+      {
+        date: "2019-09-01",
+        title: "Time Table for 1st MBBS (..",
+        text: "Time Table for 1st MBBS (Phase 1) Studen..",
+      },
+      {
+        date: "2019-08-14",
+        title: "1st mop up counseling wil..",
+        text: "This is for information to all NEET q..",
+      },
     ],
     events: [
-      { date: "2022-07-16", title: "International Yoga Day Ce..", text: "IIMSAR, Haldia had successfully organ.." },
-      { date: "2022-07-16", title: "Mental Health Awareness..", text: "West Bengal University Of.." },
-      { date: "2013-09-26", title: "First Basic Course Worksh..", text: "Chhatrapati Sahuji Maharaj Medical Un.." },
-      { date: "2016-09-09", title: "SASICME-2016..", text: "Final year MBBS students (Batch 2011-12).." },
+      {
+        date: "2022-07-16",
+        title: "International Yoga Day Ce..",
+        text: "IIMSAR, Haldia had successfully organ..",
+      },
+      {
+        date: "2022-07-16",
+        title: "Mental Health Awareness..",
+        text: "West Bengal University Of..",
+      },
+      {
+        date: "2013-09-26",
+        title: "First Basic Course Worksh..",
+        text: "Chhatrapati Sahuji Maharaj Medical Un..",
+      },
+      {
+        date: "2016-09-09",
+        title: "SASICME-2016..",
+        text: "Final year MBBS students (Batch 2011-12)..",
+      },
     ],
   },
   departments: {
     title: "Our Departments",
-    description: "Get Immediate Activation or Express Transfer service free of charge. Enthusiastically enhance plug-and-play testing procedures and cross.",
-    items: ["BIOCHEMISTRY", "Anatomy", "Pharmacology", "Community Medicine", "Pathology", "Forensic Medicine and Toxicology", "Other Departments", "Physiology"],
+    description:
+      "Get Immediate Activation or Express Transfer service free of charge. Enthusiastically enhance plug-and-play testing procedures and cross.",
+    items: [
+      "BIOCHEMISTRY",
+      "Anatomy",
+      "Pharmacology",
+      "Community Medicine",
+      "Pathology",
+      "Forensic Medicine and Toxicology",
+      "Other Departments",
+      "Physiology",
+    ],
   },
   footer: {
     locationHeading: "LOCKET US",
     quickLinksHeading: "QUICK LINKS",
     departmentHeading: "DEPARTMENT",
     resourcesHeading: "RESOURCES",
-    quickLinks: ["IIMSAR & BCRHH Details", "Principal desk", "Chairman Message's", "Vice Chairman's Message", "Announcement", "Achievements"],
-    departments: ["BIOCHEMISTRY", "Anatomy", "Pharmacology", "Community Medicine", "Pathology", "Forensic Medicine and Toxicology", "Other Departments", "Physiology"],
-    address: "Banbishnupur, P.O. - Balughata, PIN - 721 645, Haldia, Purba Medinipur (W.B), India",
+    quickLinks: [
+      "IIMSAR & BCRHH Details",
+      "Principal desk",
+      "Chairman Message's",
+      "Vice Chairman's Message",
+      "Announcement",
+      "Achievements",
+    ],
+    departments: [
+      "BIOCHEMISTRY",
+      "Anatomy",
+      "Pharmacology",
+      "Community Medicine",
+      "Pathology",
+      "Forensic Medicine and Toxicology",
+      "Other Departments",
+      "Physiology",
+    ],
+    address:
+      "Banbishnupur, P.O. - Balughata, PIN - 721 645, Haldia, Purba Medinipur (W.B), India",
     copyright: "Copyrights © 2020 by IIMSAR || Develop by DITS",
     policies: ["Privacy Policy", "Terms and Conditions"],
     partnerLogos: ["b1.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg"],

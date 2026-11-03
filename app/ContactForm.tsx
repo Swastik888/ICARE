@@ -7,6 +7,7 @@ type FormStatus = { kind: "success" | "error"; message: string } | null;
 export default function ContactForm({ adminEmail }: { adminEmail: string }) {
   const [status, setStatus] = useState<FormStatus>(null);
   const [sending, setSending] = useState(false);
+  const [emailDraft, setEmailDraft] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -16,6 +17,8 @@ export default function ContactForm({ adminEmail }: { adminEmail: string }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    const draftBody = `Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\nMessage:\n${payload.message}`;
+    const draftHref = `mailto:${adminEmail}?subject=${encodeURIComponent(`Website contact message from ${payload.name}`)}&body=${encodeURIComponent(draftBody)}`;
 
     try {
       const response = await fetch("/api/contact", {
@@ -26,13 +29,16 @@ export default function ContactForm({ adminEmail }: { adminEmail: string }) {
       const result = (await response.json()) as { message?: string };
 
       if (!response.ok) {
+        setEmailDraft(draftHref);
         setStatus({ kind: "error", message: result.message ?? "Your message could not be sent. Please email us directly." });
         return;
       }
 
       form.reset();
+      setEmailDraft("");
       setStatus({ kind: "success", message: result.message ?? "Your message has been sent." });
     } catch {
+      setEmailDraft(draftHref);
       setStatus({ kind: "error", message: "We could not connect to the message service. Please email us directly." });
     } finally {
       setSending(false);
@@ -68,7 +74,7 @@ export default function ContactForm({ adminEmail }: { adminEmail: string }) {
       </button>
       {status && (
         <p className={`contact-form-status ${status.kind}`} role="status">
-          {status.message}{status.kind === "error" && <> <a href={`mailto:${adminEmail}`}>Email {adminEmail}</a></>}
+          {status.message}{status.kind === "error" && <> <a href={emailDraft || `mailto:${adminEmail}`}>Open a prefilled email to {adminEmail}</a></>}
         </p>
       )}
     </form>

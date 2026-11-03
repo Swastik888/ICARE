@@ -24,6 +24,10 @@ export default function ScrollAnimator() {
       [".contact-form-card", "left"],
       [".contact-location-copy", "right"],
       [".contact-map", "up"],
+      [".landing-highlight-card", "alternate"],
+      [".landing-video-frame", "up"],
+      [".advantage-photo", "alternate"],
+      [".advantage-section h2", "up"],
     ];
     const elements: HTMLElement[] = [];
 

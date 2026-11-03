@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { homeContent } from "@/content/home";
 import ContactForm from "../ContactForm";
 import ScrollAnimator from "../ScrollAnimator";
+import SiteHeader from "../SiteHeader";
 
 const contactUpdates = [
   "International Yoga Day Celebration 21st June 2023",
@@ -25,7 +26,7 @@ function ContactIcon({ kind }: { kind: "phone" | "pin" | "mail" }) {
 }
 
 export default function ContactUsPage() {
-  const { utility, navigation, footer } = homeContent;
+  const { utility, footer } = homeContent;
   const phoneHref = `tel:${utility.phone.replaceAll(" ", "")}`;
   const directionsHref = "https://www.google.com/maps/dir/?api=1&destination=22.0641352%2C88.0359571";
   const mapEmbed = "https://maps.google.com/maps?q=22.0641352%2C88.0359571&z=15&output=embed";
@@ -33,22 +34,13 @@ export default function ContactUsPage() {
   return (
     <main className="site-shell contact-page">
       <ScrollAnimator />
-      <header className="site-header">
-        <nav className="navigation" aria-label="Main navigation">
-          <a className="brand-lockup" href="/#home"><img src="/images/icare-logo.png" alt="ICARE Institute of Medical Sciences and Research" /></a>
-          <div className="nav-links">
-            {navigation.map((item, index) => <a className={index === 0 ? "active" : ""} href={index === 0 ? "/#home" : "#"} key={item}>{item}</a>)}
-          </div>
-          <a className="contact-link" href="/contact-us" aria-current="page">Contact Us <ArrowIcon /></a>
-        </nav>
-        <div className="updates-bar"><span>Latest Updates</span><div className="updates-marquee" aria-label={contactUpdates.join(" • ")}><div className="updates-track contact-updates-track">{[0, 1].map((copy) => <div className="contact-update-group" key={copy} aria-hidden={copy === 1}>{contactUpdates.map((item) => <span key={`${copy}-${item}`}>{item}</span>)}</div>)}</div></div></div>
-      </header>
+      <SiteHeader current="contact" update={contactUpdates.join("  •  ")} />
 
       <section className="contact-hero" aria-labelledby="contact-title">
         <div className="contact-hero-shade" />
         <div className="contact-hero-content">
           <h1 id="contact-title">Contact Us</h1>
-          <p><a href="/#home">Home</a><span aria-hidden="true">›</span><span>Contact Us</span></p>
+          <p><a href="/home">Home</a><span aria-hidden="true">›</span><span>Contact Us</span></p>
         </div>
         <div className="contact-hero-wave" aria-hidden="true" />
       </section>

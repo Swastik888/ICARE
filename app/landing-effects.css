@@ -1,0 +1,308 @@
+/* ICARE landing page: colors + motion layer.
+   Colors are taken from the reference site: deep navy, a bright pink action color and a sage green. */
+
+:root {
+    --icare-navy: #0a3a96;
+    --icare-navy-deep: #061d52;
+    --icare-blue: #1b64d8;
+    --icare-pink: #ff2e6c;
+    --icare-pink-soft: #ff6f98;
+    --icare-sage: #9bb494;
+    --fx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- Scroll progress bar ---------- */
+.fx-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 1000;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--icare-navy), var(--icare-blue), var(--icare-pink));
+    pointer-events: none;
+}
+
+/* ---------- Hero slider ---------- */
+.landing-hero .landing-slide img {
+    transform: scale(1);
+}
+
+/* Slow zoom on the slide that is showing */
+.landing-hero .landing-slide.active:not(.image-only) img {
+    animation: fx-kenburns 9s ease-out both;
+}
+
+.landing-hero .landing-slide-shade {
+    background: linear-gradient(100deg,
+            rgba(6, 29, 82, 0.88) 0%,
+            rgba(10, 58, 150, 0.55) 48%,
+            rgba(10, 58, 150, 0.08) 100%);
+}
+
+/* Heading, text, button and stats arrive one after another when a slide opens */
+.landing-hero .landing-slide.active .landing-slide-copy>* {
+    animation: fx-rise 0.85s var(--fx-ease) both;
+}
+
+.landing-hero .landing-slide.active .landing-slide-copy> :nth-child(2) {
+    animation-delay: 0.14s;
+}
+
+.landing-hero .landing-slide.active .landing-slide-copy> :nth-child(3) {
+    animation-delay: 0.28s;
+}
+
+.landing-hero .landing-slide.active .landing-slide-copy> :nth-child(4) {
+    animation-delay: 0.42s;
+}
+
+/* Image-only slides (the two photos): full picture, soft blurred fill behind it */
+.landing-hero .landing-slide.image-only {
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--icare-navy-deep);
+}
+
+.landing-hero .landing-slide.image-only::before {
+    content: "";
+    position: absolute;
+    inset: -24px;
+    z-index: -1;
+    background: var(--slide-bg) center / cover no-repeat;
+    filter: blur(26px) saturate(1.1) brightness(0.8);
+}
+
+.landing-hero .landing-slide.image-only img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.landing-hero .landing-slide.image-only.active img {
+    animation: fx-settle 1.1s var(--fx-ease) both;
+}
+
+/* Pink action button with a light sweep on hover */
+.landing-hero .landing-action {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--icare-pink), #ff5c8a);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(255, 46, 108, 0.38);
+    transition: transform 0.25s var(--fx-ease), box-shadow 0.25s var(--fx-ease);
+}
+
+.landing-hero .landing-action::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+    transform: translateX(-120%);
+}
+
+.landing-hero .landing-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(255, 46, 108, 0.5);
+}
+
+.landing-hero .landing-action:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.7s var(--fx-ease);
+}
+
+.landing-hero .landing-action b {
+    display: inline-block;
+    transition: transform 0.25s var(--fx-ease);
+}
+
+.landing-hero .landing-action:hover b {
+    transform: translate(3px, -3px);
+}
+
+/* Arrows: glass buttons */
+.landing-hero .landing-arrow {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.25s ease, transform 0.25s var(--fx-ease);
+}
+
+.landing-hero .landing-arrow:hover {
+    background: var(--icare-pink);
+    border-color: var(--icare-pink);
+}
+
+.landing-hero .landing-arrow:focus-visible,
+.landing-hero .landing-dots button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+/* Dots: the active one stretches into a pill */
+.landing-hero .landing-dots button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.55);
+    transition: width 0.35s var(--fx-ease), background 0.25s ease;
+}
+
+.landing-hero .landing-dots button.active {
+    width: 30px;
+    background: var(--icare-pink);
+}
+
+/* Progress line at the bottom of the hero shows when the next slide comes */
+.landing-hero .landing-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    z-index: 5;
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--icare-pink), var(--icare-pink-soft));
+    animation-name: fx-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    pointer-events: none;
+}
+
+.landing-hero .landing-progress.is-paused {
+    animation-play-state: paused;
+}
+
+/* ---------- Scroll reveal for the sections below the hero ---------- */
+.fx-reveal {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    transition: opacity 0.75s var(--fx-ease) var(--fx-delay, 0ms),
+        transform 0.75s var(--fx-ease) var(--fx-delay, 0ms);
+    will-change: opacity, transform;
+}
+
+.fx-reveal.fx-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---------- Buttons and forms (pink to match the reference) ---------- */
+main form button[type="submit"] {
+    background: linear-gradient(135deg, var(--icare-pink), #ff5c8a);
+    color: #fff;
+    border: 0;
+    transition: transform 0.25s var(--fx-ease), box-shadow 0.25s var(--fx-ease);
+}
+
+main form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(255, 46, 108, 0.4);
+}
+
+main form input:focus,
+main form select:focus,
+main form textarea:focus {
+    outline: none;
+    border-color: var(--icare-navy);
+    box-shadow: 0 0 0 4px rgba(10, 58, 150, 0.14);
+}
+
+/* ---------- Floating Call and WhatsApp buttons: soft pulse ---------- */
+[class*="floating"] a,
+[class*="floating"] button {
+    animation: fx-pulse 2.6s ease-out infinite;
+    transition: transform 0.25s var(--fx-ease);
+}
+
+[class*="floating"] a:hover,
+[class*="floating"] button:hover {
+    transform: scale(1.1);
+    animation-play-state: paused;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes fx-kenburns {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes fx-settle {
+    from {
+        transform: scale(1.025);
+        opacity: 0.85;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fx-rise {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fx-progress {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes fx-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 46, 108, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 16px rgba(255, 46, 108, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 46, 108, 0);
+    }
+}
+
+/* ---------- Respect "reduce motion" ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .landing-hero .landing-slide.active img,
+    .landing-hero .landing-slide.active .landing-slide-copy>*,
+    [class*="floating"] a,
+    [class*="floating"] button {
+        animation: none;
+    }
+
+    .fx-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .landing-hero .landing-progress {
+        display: none;
+    }
+}
