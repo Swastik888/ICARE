@@ -235,13 +235,6 @@ export default function HomePageContent({
             <a href={`mailto:${utility.email}`}>{utility.email}</a>
           </div>
         </div>
-        <div className="footer-bottom content-width">
-          <span>{footer.copyright}</span>
-          <span>
-            <a href="#">{footer.policies[0]}</a>
-            <i /> <a href="#">{footer.policies[1]}</a>
-          </span>
-        </div>
       </footer>
     </main>
   );

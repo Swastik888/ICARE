@@ -1,4 +1,7 @@
-import { homeContent } from "@/content/home";
+import { getDb } from "@/lib/mongodb"
+import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
 
 const MAX_LENGTHS = {
   name: 120,
@@ -9,166 +12,147 @@ const MAX_LENGTHS = {
 };
 
 export async function POST(request: Request) {
-  let payload: Record<string, unknown>;
-
   try {
-    const data: unknown = await request.json();
+    let payload: Record<string, unknown>;
 
-    if (!data || typeof data !== "object" || Array.isArray(data)) {
-      return Response.json(
-        { message: "Invalid form submission." },
+    // Read and validate JSON.
+    try {
+      const data: unknown = await request.json();
+
+      if (!data || typeof data !== "object" || Array.isArray(data)) {
+        return NextResponse.json(
+          { message: "Invalid form submission." },
+          { status: 400 },
+        );
+      }
+
+      payload = data as Record<string, unknown>;
+    } catch {
+      return NextResponse.json(
+        { message: "Please submit a valid form." },
         { status: 400 },
       );
     }
 
-    payload = data as Record<string, unknown>;
-  } catch {
-    return Response.json(
-      { message: "Please submit a valid contact form." },
-      { status: 400 },
-    );
-  }
-
-  // Honeypot: quietly accept bot submissions.
-  if (typeof payload.website === "string" && payload.website.trim()) {
-    return Response.json({
-      message: "Your message has been sent.",
-    });
-  }
-
-  const name = typeof payload.name === "string" ? payload.name.trim() : "";
-
-  const email = typeof payload.email === "string" ? payload.email.trim() : "";
-
-  const phone = typeof payload.phone === "string" ? payload.phone.trim() : "";
-
-  const message =
-    typeof payload.message === "string" ? payload.message.trim() : "";
-
-  const course =
-    typeof payload.course === "string" ? payload.course.trim() : "";
-
-  const admission = payload.kind === "admission";
-
-  if (
-    !name ||
-    !phone ||
-    name.length > MAX_LENGTHS.name ||
-    phone.length > MAX_LENGTHS.phone
-  ) {
-    return Response.json(
-      { message: "Please enter your name and phone number." },
-      { status: 400 },
-    );
-  }
-
-  if (!admission && (!email || !message)) {
-    return Response.json(
-      { message: "Please provide your email and message." },
-      { status: 400 },
-    );
-  }
-
-  if (
-    email.length > MAX_LENGTHS.email ||
-    (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-  ) {
-    return Response.json(
-      { message: "Please enter a valid email address." },
-      { status: 400 },
-    );
-  }
-
-  if (!admission && message.length > MAX_LENGTHS.message) {
-    return Response.json(
-      { message: "Your message is too long." },
-      { status: 400 },
-    );
-  }
-
-  if (admission && (!course || course.length > MAX_LENGTHS.course)) {
-    return Response.json(
-      { message: "Please select a course." },
-      { status: 400 },
-    );
-  }
-
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-
-  if (!apiKey || !from) {
-    console.error("Missing Resend environment variables.");
-
-    return Response.json(
-      { message: "Email service is not configured." },
-      { status: 503 },
-    );
-  }
-
-  try {
-    const emailText = admission
-      ? `Admission enquiry
-
-Name: ${name}
-Phone: ${phone}
-Course: ${course}`
-      : `Contact message
-
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-
-Message:
-${message}`;
-
-    const body: Record<string, unknown> = {
-      from,
-      to: [homeContent.utility.email],
-      subject: admission
-        ? `Admission enquiry from ${name}`
-        : `Website contact message from ${name}`,
-      text: emailText,
-    };
-
-    if (email) {
-      body.reply_to = email;
+    // Honeypot spam protection.
+    if (typeof payload.website === "string" && payload.website.trim()) {
+      return NextResponse.json({
+        message: "Your submission has been received.",
+      });
     }
 
-    const delivery = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const kind = payload.kind;
 
-    if (!delivery.ok) {
-      const errorDetails = await delivery.text();
-
-      console.error("Resend delivery error:", errorDetails);
-
-      return Response.json(
-        { message: "Email delivery failed. Please try again later." },
-        { status: 502 },
+    if (kind !== "contact" && kind !== "admission") {
+      return NextResponse.json(
+        { message: "Invalid enquiry type." },
+        { status: 400 },
       );
     }
 
-    const result = await delivery.json();
+    const name = typeof payload.name === "string" ? payload.name.trim() : "";
 
-    console.log("Email sent successfully:", result.id);
+    const email = typeof payload.email === "string" ? payload.email.trim() : "";
 
-    return Response.json({
-      message: admission
-        ? "Your admission enquiry has been sent. Thank you."
-        : "Your message has been sent. Thank you for contacting us.",
-    });
+    const phone = typeof payload.phone === "string" ? payload.phone.trim() : "";
+
+    const message =
+      typeof payload.message === "string" ? payload.message.trim() : "";
+
+    const course =
+      typeof payload.course === "string" ? payload.course.trim() : "";
+
+    const admission = kind === "admission";
+
+    // Required fields.
+    if (
+      !name ||
+      !phone ||
+      name.length > MAX_LENGTHS.name ||
+      phone.length > MAX_LENGTHS.phone
+    ) {
+      return NextResponse.json(
+        { message: "Please enter a valid name and phone number." },
+        { status: 400 },
+      );
+    }
+
+    // Contact form validation.
+    if (!admission) {
+      if (!email || !message) {
+        return NextResponse.json(
+          { message: "Please provide your email and message." },
+          { status: 400 },
+        );
+      }
+
+      if (message.length > MAX_LENGTHS.message) {
+        return NextResponse.json(
+          { message: "Your message is too long." },
+          { status: 400 },
+        );
+      }
+    }
+
+    // Email validation.
+    if (
+      email.length > MAX_LENGTHS.email ||
+      (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    ) {
+      return NextResponse.json(
+        { message: "Please enter a valid email address." },
+        { status: 400 },
+      );
+    }
+
+    // Admission validation.
+    if (admission && (!course || course.length > MAX_LENGTHS.course)) {
+      return NextResponse.json(
+        { message: "Please select a valid course." },
+        { status: 400 },
+      );
+    }
+
+    // Connect to MongoDB.
+    const db = await getDb();
+
+    // Prepare enquiry document.
+    const enquiry = {
+      kind,
+      name,
+      email: email || null,
+      phone,
+      message: message || null,
+      course: course || null,
+      status: "new",
+      source: "website",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    // Save enquiry permanently.
+    const result = await db.collection("enquiries").insertOne(enquiry);
+
+    console.log("Enquiry saved:", result.insertedId.toString());
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: admission
+          ? "Your admission enquiry has been received. Thank you!"
+          : "Your message has been received. Thank you for contacting us.",
+      },
+      { status: 201 },
+    );
   } catch (error) {
-    console.error("Email service error:", error);
+    console.error("Enquiry submission error:", error);
 
-    return Response.json(
-      { message: "Something went wrong. Please try again later." },
-      { status: 502 },
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong. Please try again later.",
+      },
+      { status: 500 },
     );
   }
 }
