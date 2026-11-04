@@ -4,6 +4,9 @@ import HomePageContent from "../HomePageContent";
 export const metadata: Metadata = {
   title: "Home | ICARE Institute of Medical Sciences and Research",
   description: "Academic programmes, healthcare, facilities and admission enquiries at ICARE, Haldia.",
+  alternates: {
+    canonical: "/home",
+  },
   openGraph: {
     title: "Home | ICARE Institute of Medical Sciences and Research",
     description: "Academic programmes, healthcare, facilities and admission enquiries at ICARE, Haldia.",

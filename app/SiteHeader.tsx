@@ -8,6 +8,7 @@ export default function SiteHeader({ current, update = homeContent.update, homeH
     if (item === "Home") return homeHref;
     if (item === "About") return `${homeHref}#about`;
     if (item === "Admission") return `${homeHref}#admission`;
+    if (item === "Departments") return `${homeHref}#departments`;
     return "#";
   };
 
