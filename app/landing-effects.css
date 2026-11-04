@@ -306,3 +306,85 @@ main form textarea:focus {
         display: none;
     }
 }
+/* Full-bleed hero image: disable the blurred duplicate image and fill the slide. */
+.landing-hero {
+    --gx: 0px;
+    --gy: 0px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.landing-hero::before,
+.landing-hero::after {
+    display: none !important;
+    content: none !important;
+    filter: none !important;
+}
+
+.landing-hero .landing-slide.image-only {
+    inset: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+.landing-hero .landing-slide.image-only::before {
+    display: none !important;
+    content: none !important;
+    filter: none !important;
+}
+
+.landing-hero .landing-slide.image-only img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    object-position: center center;
+}
+/* Floating rounded hero card; the photo still fills the card without a blurred duplicate. */
+.landing-hero {
+    --gx: clamp(12px, 3vw, 42px);
+    --gy: clamp(12px, 2.5vw, 30px);
+    background: linear-gradient(135deg, #e3eee6, #d3e3d9 50%, #e9e3d3);
+}
+
+.landing-hero .landing-slide.image-only {
+    inset: var(--gy) var(--gx);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: clamp(18px, 2.4vw, 32px);
+    box-shadow: 0 24px 56px rgba(19, 58, 49, 0.22);
+}
+
+.landing-hero .landing-slide.image-only img {
+    border-radius: inherit;
+    object-fit: cover !important;
+}
+
+@media (max-width: 760px) {
+    .landing-hero {
+        --gx: 12px;
+        --gy: 12px;
+    }
+
+    .landing-hero .landing-slide.image-only {
+        border-radius: 20px;
+    }
+}
+/* Preserve all text baked into the 1350x650 hero artwork. */
+.landing-hero {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 1350 / 650;
+}
+
+.landing-hero .landing-slide.image-only {
+    background: #e3eee6;
+}
+
+.landing-hero .landing-slide.image-only img {
+    object-fit: contain !important;
+    object-position: center;
+}
