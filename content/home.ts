@@ -6,7 +6,7 @@ export const homeContent = {
     hospitalPhone: "+91 8170008563",
   },
   brand: "ICARE",
-  navigation: ["Home", "About", "Admission"],
+  navigation: ["Home", "Admission", "About"],
   update: "MBBS | MD/ MS ADMISSION 2026-27",
   hero: {
     title: "Welcome To",
@@ -42,17 +42,7 @@ export const homeContent = {
     // Try 90 first. If sideways the other way use 270; upside down use 180; already straight use 0.
     rotate: 90 as 0 | 90 | 180 | 270,
   },
-  promise: {
-    title: "Choose The Best",
-    description:
-      "Provide quality medical education as wellas best health care facilities all over theregion for public benefit",
-    items: [
-      { title: "Placement Assitance" },
-      { title: "Experienced Faculty" },
-      { title: "Quality Healthcare" },
-      { title: "800+ Bedded" },
-    ],
-  },
+
   about: {
     title: "IIMSAR & BCRHH, INTRODUCTION",
     paragraphs: [
@@ -110,48 +100,15 @@ export const homeContent = {
     text: "Speak to Our Academic Counsellor For MBBS & MD/MS Admissions through Counselling.",
     action: "CALL NOW",
   },
-  news: {
-    title: "News & Events",
+  promise: {
+    title: "Choose The Best",
     description:
-      "Get Immediate Activation or Express Transfer service free of charge. Enthusiastically enhance plug-and-play testing procedures and cross.",
-    news: [
-      {
-        date: "2019-08-17",
-        title: "3rd day College mop up co..",
-        text: "This is for information to all NEET q..",
-      },
-      {
-        date: "2019-09-01",
-        title: "Time Table for 1st MBBS (..",
-        text: "Time Table for 1st MBBS (Phase 1) Studen..",
-      },
-      {
-        date: "2019-08-14",
-        title: "1st mop up counseling wil..",
-        text: "This is for information to all NEET q..",
-      },
-    ],
-    events: [
-      {
-        date: "2022-07-16",
-        title: "International Yoga Day Ce..",
-        text: "IIMSAR, Haldia had successfully organ..",
-      },
-      {
-        date: "2022-07-16",
-        title: "Mental Health Awareness..",
-        text: "West Bengal University Of..",
-      },
-      {
-        date: "2013-09-26",
-        title: "First Basic Course Worksh..",
-        text: "Chhatrapati Sahuji Maharaj Medical Un..",
-      },
-      {
-        date: "2016-09-09",
-        title: "SASICME-2016..",
-        text: "Final year MBBS students (Batch 2011-12)..",
-      },
+      "Provide quality medical education as wellas best health care facilities all over theregion for public benefit",
+    items: [
+      { title: "Placement Assitance" },
+      { title: "Experienced Faculty" },
+      { title: "Quality Healthcare" },
+      { title: "800+ Bedded" },
     ],
   },
   departments: {
@@ -168,33 +125,28 @@ export const homeContent = {
       "Other Departments",
       "Physiology",
     ],
+    moreItems: [
+      { title: "Microbiology", href: "https://icaremedicalcollege.co/department-details/12.html" },
+      { title: "Community Medicine", href: "https://icaremedicalcollege.co/department-details/13.html" },
+      { title: "General Medicine", href: "https://icaremedicalcollege.co/department-details/14.html" },
+      { title: "Paediatric Medicine", href: "https://icaremedicalcollege.co/department-details/15.html" },
+      { title: "TB & Chest Medicine", href: "https://icaremedicalcollege.co/department-details/16.html" },
+      { title: "Psychiatry", href: "https://icaremedicalcollege.co/department-details/17.html" },
+      { title: "Dermatology", href: "https://icaremedicalcollege.co/department-details/18.html" },
+      { title: "General Surgery", href: "https://icaremedicalcollege.co/department-details/19.html" },
+      { title: "Orthopaedics", href: "https://icaremedicalcollege.co/department-details/20.html" },
+      { title: "Obstetrics and gynecology", href: "https://icaremedicalcollege.co/department-details/21.html" },
+      { title: "Anesthesiology", href: "https://icaremedicalcollege.co/department-details/22.html" },
+      { title: "radio-diagnosis", href: "https://icaremedicalcollege.co/department-details/23.html" },
+      { title: "Dentistry", href: "https://icaremedicalcollege.co/department-details/24.html" },
+    ],
   },
   footer: {
     locationHeading: "LOCKET US",
-    quickLinksHeading: "QUICK LINKS",
-    departmentHeading: "DEPARTMENT",
     resourcesHeading: "RESOURCES",
-    quickLinks: [
-      "IIMSAR & BCRHH Details",
-      "Principal desk",
-      "Chairman Message's",
-      "Vice Chairman's Message",
-      "Announcement",
-      "Achievements",
-    ],
-    departments: [
-      "BIOCHEMISTRY",
-      "Anatomy",
-      "Pharmacology",
-      "Community Medicine",
-      "Pathology",
-      "Forensic Medicine and Toxicology",
-      "Other Departments",
-      "Physiology",
-    ],
     address:
       "Banbishnupur, P.O. - Balughata, PIN - 721 645, Haldia, Purba Medinipur (W.B), India",
-    copyright: "Copyrights © 2020 by IIMSAR || Develop by DITS",
+    copyright: "Copyrights © 2020 by IIMSAR ",
     policies: ["Privacy Policy", "Terms and Conditions"],
     partnerLogos: ["b1.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg"],
   },
